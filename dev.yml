@@ -1,0 +1,17 @@
+name: proxysql-2
+
+commands:
+  build_image:
+    desc: "Build docker image for debugging"
+    run: docker build -t proxysql-2-upstream docker
+
+  start:
+    desc: "Start the container with mariadb and start bash"
+    run: |
+      docker run -it --rm --name proxysql_upstream \
+      --mount type=bind,source="$(pwd)",target=/tmp/proxysql \
+      proxysql-2-upstream /bin/bash 
+
+  ssh:
+    desc: "Ssh into the docker container"
+    run: docker exec -it proxysql_upstream /bin/bash
